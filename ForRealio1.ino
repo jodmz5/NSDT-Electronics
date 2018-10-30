@@ -14,7 +14,8 @@ A_t data;
 
 void setup() {
   Serial.begin(9600);
-  Serial.print("Waiting for incoming data");
+  Serial.println("Waiting for incoming data");
+  Serial.println("Temperature: \t Strain: \t Light:");
   radio.begin();
   radio.setPALevel(RF24_PA_MIN);
   radio.setDataRate(RF24_2MBPS);
@@ -32,9 +33,12 @@ void loop() {
       radio.read(&data, sizeof(data));
     }
   }
-  Serial.println(data.temp);
-  Serial.println(data.strain);
-  Serial.println(data.light);
+  Serial.print(data.temp);
+  Serial.print("\t\t");
+  Serial.print(data.strain);
+  Serial.print("\t\t");
+  Serial.print(data.light);
+  Serial.println("");
   radio.stopListening();
   if(!radio.write(&command, sizeof(int)));
   radio.startListening();
