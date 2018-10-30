@@ -40,8 +40,8 @@ void setup() {
 void loop() {
   typedef struct{
   int temp=249;//analogRead(temppin);
-  int strain=2;//analogRead(strainpin);
-  int light==45//analogRead(lightpin);
+  int strain=8;//analogRead(strainpin);
+  int light=45;//analogRead(lightpin);
   }
   A_t;
   A_t data;
