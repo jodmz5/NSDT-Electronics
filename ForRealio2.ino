@@ -30,7 +30,7 @@ void setup() {
   radio.setChannel(1998);//Don't use something that will be a wifi name, ie MST
   radio.openWritingPipe(addresses[0]);// will SEND to the 2nd "addresses" index, 2node.
   radio.openReadingPipe(1,addresses[1]);//opens a reading pope 1 between the 2
- 
+  pinMode(relaypin,OUTPUT);
   digitalWrite(relaypin, HIGH); // might be low depending on how relays work
 
 }
@@ -46,16 +46,18 @@ void loop() {
   A_t;
   A_t data;
   if(data.temp>=tempthresh){
-    digitalWrite(relaypin, LOW);//might be HIGH based on how relays work
+    digitalWrite(relaypin, HIGH);//might be HIGH based on how relays work
   }else if(data.strain>=strainthresh){
-    digitalWrite(relaypin, LOW);
+    digitalWrite(relaypin, HIGH);
   }else if(data.light>=lightthresh){
-    digitalWrite(relaypin, LOW);
+    digitalWrite(relaypin, HIGH);
   }
   if(!radio.write(&data, sizeof(data))){
   }
   radio.startListening();
+  int wowow=10;
   if(radio.available()){
+    
     while(radio.available()){
       typedef struct{
         int command;
@@ -64,20 +66,26 @@ void loop() {
       B_t commands;
       radio.read(&commands, sizeof(commands));
       Serial.println(commands.command);
-      return;
-       if(commands.command==120){
-        digitalWrite(relaypin,LOW);
-      }else if(commands.command==111){
-        digitalWrite(relaypin, HIGH);*/
+      wowow=commands.command;
+      if(wowow>=120){//off
+        digitalWrite(relaypin,HIGH);
+      }else if(wowow==111){//on
+        digitalWrite(relaypin, LOW);
+        return;
     }
-  }
       
+ 
+  }
+  }
+}
+  
+    
 
   
   
    
      
-    }
+    
 
 
  
