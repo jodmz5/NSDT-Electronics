@@ -10,7 +10,7 @@ typedef struct{
 }
 A_t;
 A_t data;
-
+//To wire relay: 1. Connect the coil with 5V. 2. Connect on of the pins on the other end to power, and the on you are connecting to the MIDDLE pin
 void setup() {
   Serial.begin(9600);
  // Serial.println("Waiting for incoming data");
