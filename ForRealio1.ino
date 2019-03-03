@@ -3,6 +3,7 @@
 #include<RF24.h>
 RF24 radio(7,8);
 byte addresses[][6]={"1node","2node"};
+
 typedef struct{
   int temp;
   int strain;
@@ -42,12 +43,16 @@ void loop() {
   }
   
   Serial.print(data.temp);
+  Serial.print(',');
   Serial.print("\t\t");
   Serial.print(data.strain);
+  Serial.print(',');
   Serial.print("\t\t");
   Serial.print(data.light);
+  Serial.print(',');
   Serial.print("\t\t");
   Serial.print(commands.command);
+  Serial.print(',');
   Serial.println("\t\t");
   delay(5);
   radio.stopListening();
